@@ -136,6 +136,16 @@ export default async function decorate(block) {
     brandLink.className = '';
     brandLink.closest('.button-container').className = '';
   }
+  const brandAnchor = navBrand.querySelector('a');
+  if (brandAnchor && !brandAnchor.querySelector('img')) {
+    const logo = document.createElement('img');
+    logo.src = `${window.hlx.codeBasePath}/icons/astrazeneca-logo.png`;
+    logo.alt = brandAnchor.textContent.trim() || 'AstraZeneca';
+    logo.width = 140;
+    logo.height = 36;
+    brandAnchor.textContent = '';
+    brandAnchor.append(logo);
+  }
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
@@ -149,6 +159,11 @@ export default async function decorate(block) {
         }
       });
     });
+  }
+
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) {
+    navTools.querySelectorAll('p').forEach((p) => p.classList.add('nav-tools-item'));
   }
 
   // hamburger for mobile
