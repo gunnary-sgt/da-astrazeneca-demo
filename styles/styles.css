@@ -151,17 +151,15 @@
   --az-radius-xl: 24px;
   --az-radius-circle: 4000px;
 
-  /* --- Layout grid --- */
+  /* --- Layout grid (base = L viewport ≥1440; smaller tiers overridden below) --- */
+  --az-grid-columns: 12;
   --az-viewport-grid: 1440px;
   --az-content-grid: 1280px;
   --az-content-margin: 80px;
   --az-content-gutter: 40px;
   --az-column-gutter: 110px;
 
-  /* grid: 12 columns, 40px gutter, 1280 content area */
-  --az-grid-columns: 12;
-
-  /* column widths (n columns incl. inner gutters, in a 1280 grid) */
+  /* column widths (n columns incl. inner gutters) — L values */
   --az-col-1: 70px;
   --az-col-2: 180px;
   --az-col-3: 290px;
@@ -174,15 +172,6 @@
   --az-col-10: 1060px;
   --az-col-11: 1170px;
   --az-col-12: 1280px;
-
-  /* responsive side margins per viewport tier */
-  --az-margin-xs: 20px; /* 375–768 */
-  --az-margin-s: 40px;  /* 768–1024 */
-  --az-margin-m: 40px;  /* 1024–1440 */
-  --az-margin-l: 80px;  /* 1440+ */
-
-  /* active content margin (mobile-first; overridden per breakpoint) */
-  --az-content-margin-current: var(--az-margin-xs);
 
   /* --- Layout: footer & hero --- */
   --az-footer-col-width: 290px;
@@ -236,6 +225,80 @@
 
   /* nav height */
   --nav-height: 64px;
+}
+
+/* ==========================================================================
+   Grid system — per-viewport overrides (desktop-first / Figma mode widths)
+   Base :root = L (≥1440). Each query redefines the grid for its tier.
+   ========================================================================== */
+
+/* M viewport: 1024–1440 */
+@media (width < 1440px) {
+  :root {
+    --az-viewport-grid: 1024px;
+    --az-content-grid: 920px;
+    --az-content-margin: 52px;
+    --az-content-gutter: 24px;
+    --az-column-gutter: 79px;
+    --az-col-1: 55px;
+    --az-col-2: 133px;
+    --az-col-3: 212px;
+    --az-col-4: 291px;
+    --az-col-5: 369px;
+    --az-col-6: 448px;
+    --az-col-7: 527px;
+    --az-col-8: 605px;
+    --az-col-9: 684px;
+    --az-col-10: 763px;
+    --az-col-11: 841px;
+    --az-col-12: 920px;
+  }
+}
+
+/* S viewport: 768–1024 */
+@media (width < 1024px) {
+  :root {
+    --az-viewport-grid: 768px;
+    --az-content-grid: 688px;
+    --az-content-margin: 40px;
+    --az-content-gutter: 24px;
+    --az-column-gutter: 89px;
+    --az-col-1: 65px;
+    --az-col-2: 154px;
+    --az-col-3: 243px;
+    --az-col-4: 332px;
+    --az-col-5: 421px;
+    --az-col-6: 510px;
+    --az-col-7: 599px;
+    --az-col-8: 688px;
+    --az-col-9: 688px;
+    --az-col-10: 688px;
+    --az-col-11: 688px;
+    --az-col-12: 688px;
+  }
+}
+
+/* XS viewport: 375–768 */
+@media (width < 768px) {
+  :root {
+    --az-viewport-grid: 375px;
+    --az-content-grid: 335px;
+    --az-content-margin: 20px;
+    --az-content-gutter: 24px;
+    --az-column-gutter: 90px;
+    --az-col-1: 66px;
+    --az-col-2: 156px;
+    --az-col-3: 245px;
+    --az-col-4: 335px;
+    --az-col-5: 335px;
+    --az-col-6: 335px;
+    --az-col-7: 335px;
+    --az-col-8: 335px;
+    --az-col-9: 335px;
+    --az-col-10: 335px;
+    --az-col-11: 335px;
+    --az-col-12: 335px;
+  }
 }
 
 /* fallback fonts */
@@ -559,27 +622,13 @@ main > .section {
 
 main > .section > div {
   box-sizing: border-box;
-  max-width: calc(var(--az-content-grid) + (var(--az-content-margin-current) * 2));
+  max-width: calc(var(--az-content-grid) + (var(--az-content-margin) * 2));
   margin: auto;
-  padding: 0 var(--az-content-margin-current);
+  padding: 0 var(--az-content-margin);
 }
 
 main > .section:first-of-type {
   margin-top: 0;
-}
-
-/* S viewport: 768–1024 → 40px margins */
-@media (width >= 768px) {
-  :root {
-    --az-content-margin-current: var(--az-margin-s);
-  }
-}
-
-/* L viewport: 1440+ → 80px margins */
-@media (width >= 1440px) {
-  :root {
-    --az-content-margin-current: var(--az-margin-l);
-  }
 }
 
 /* section metadata */
