@@ -86,6 +86,10 @@
   margin: 8px 0 0;
 }
 
+.hero-content a.button {
+  border-radius: var(--az-radius-small);
+}
+
 /* --- stat card --- */
 .hero-stat-card {
   box-sizing: border-box;
@@ -103,7 +107,7 @@
   font-family: var(--az-font-body);
   font-size: 16px;
   line-height: 20px;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 1.6px;
   text-transform: uppercase;
   color: var(--az-text-data);
@@ -131,7 +135,7 @@
 .hero-stat-card .hero-stat-cagr {
   margin: 8px 0 0;
   padding-top: 16px;
-  border-top: 1px solid var(--az-mulberry-50);
+  border-top: 2px solid var(--az-mulberry-50);
   font-size: 24px;
   line-height: 32px;
   color: var(--az-text-base);
@@ -141,7 +145,7 @@
   margin: 0;
   font-size: 12px;
   line-height: 16px;
-  color: var(--az-graphite-40);
+  color: var(--az-black-10);
 }
 
 .hero-chart {
@@ -171,7 +175,6 @@ a.hero-quicklink-link:any-link {
   gap: 16px;
   height: 100%;
   padding: 24px;
-  border: 1px solid var(--az-graphite-10);
   border-radius: var(--az-radius-medium);
   background-color: var(--az-background-container);
   font-family: var(--az-font-headline);
@@ -179,12 +182,11 @@ a.hero-quicklink-link:any-link {
   line-height: 24px;
   color: var(--az-text-base);
   text-decoration: none;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 a.hero-quicklink-link:hover,
 a.hero-quicklink-link:focus-visible {
-  border-color: var(--az-mulberry-50);
   color: var(--az-mulberry-50);
   text-decoration: none;
 }
@@ -266,13 +268,13 @@ a.hero-quicklink-link:focus-visible {
   .hero-top {
     flex-direction: row;
     justify-content: space-between;
-    align-items: start;
+    align-items: center;
     gap: 40px;
   }
 
   .hero-content {
     flex: 0 1 var(--az-hero-width-text);
-    gap: 32px;
+    gap: 40px;
   }
 
   .hero-content h1 {
@@ -284,7 +286,7 @@ a.hero-quicklink-link:focus-visible {
     display: flex;
     flex: 0 0 var(--az-hero-width-graph);
     width: var(--az-hero-width-graph);
-    gap: 24px;
+    gap: 32px;
     padding: 32px;
   }
 
