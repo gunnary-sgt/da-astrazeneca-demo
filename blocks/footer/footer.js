@@ -17,6 +17,12 @@ function decorateBrand(region) {
     link.textContent = '';
     link.append(logo);
   }
+  const logoPara = link ? link.closest('p') : null;
+  if (logoPara) logoPara.classList.add('footer-brand-logo');
+  // tag the disclaimer (gets the gold divider) and the legal/review lines
+  const paras = [...region.querySelectorAll('p')].filter((p) => p !== logoPara);
+  if (paras[0]) paras[0].classList.add('footer-brand-disclaimer');
+  if (paras[1]) paras[1].classList.add('footer-brand-legal');
 }
 
 /**
