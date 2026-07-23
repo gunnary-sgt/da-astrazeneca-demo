@@ -1,20 +1,276 @@
+/* ==========================================================================
+   AstraZeneca dark footer
+   ========================================================================== */
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: #1a1a1a;
+  color: var(--az-text-inverted);
+  font-family: var(--az-font-body);
+  font-size: 16px;
+  line-height: 20px;
 }
 
-footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+footer .footer {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 64px 24px 40px;
 }
 
 footer .footer p {
   margin: 0;
 }
 
+footer .footer a:any-link {
+  color: var(--az-text-inverted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+footer .footer a:hover,
+footer .footer a:focus-visible {
+  color: var(--az-gold-50);
+  text-decoration: none;
+}
+
+/* section headings with gold underline */
+footer .footer h4 {
+  margin: 0 0 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--az-gold-50);
+  font-family: var(--az-font-headline);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--az-text-inverted);
+}
+
+/* --- brand --- */
+footer .footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 340px;
+}
+
+footer .footer-brand img {
+  width: 160px;
+  height: auto;
+}
+
+footer .footer-brand p {
+  color: var(--az-graphite-20);
+  line-height: 22px;
+}
+
+footer .footer-brand p:last-child {
+  padding-top: 24px;
+  border-top: 2px solid var(--az-gold-50);
+  font-size: 14px;
+  color: var(--az-graphite-30);
+}
+
+/* --- link columns --- */
+footer .footer-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+footer .footer-link-list {
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+footer .footer-link-list li {
+  border-bottom: 1px solid rgb(255 255 255 / 12%);
+}
+
+footer .footer-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+footer .footer-link-chevron {
+  flex: 0 0 auto;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* --- connect + newsletter --- */
+footer .footer-connect {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+footer .footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+footer .footer-social a:any-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgb(255 255 255 / 40%);
+  border-radius: var(--az-radius-circle);
+  font-size: 0;
+}
+
+footer .footer-social a:hover,
+footer .footer-social a:focus-visible {
+  border-color: var(--az-gold-50);
+}
+
+footer .footer-social .icon {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  color: var(--az-text-inverted);
+}
+
+footer .footer-social .icon img {
+  width: 100%;
+  height: 100%;
+}
+
+footer .footer-social a:hover .icon,
+footer .footer-social a:focus-visible .icon {
+  color: var(--az-gold-50);
+}
+
+footer .footer-subscribe {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+/* --- meta nav --- */
+footer .footer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgb(255 255 255 / 12%);
+}
+
+footer .footer-country {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+footer .footer-country .icon {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+}
+
+footer .footer-country .icon img {
+  width: 100%;
+  height: 100%;
+}
+
+footer .footer-meta-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+footer .footer-copyright {
+  color: var(--az-graphite-30);
+  font-size: 14px;
+}
+
+/* ==========================================================================
+   Tablet (M)
+   ========================================================================== */
+@media (width >= 600px) {
+  footer .footer {
+    padding: 64px 40px 40px;
+  }
+
+  footer .footer-brand {
+    max-width: none;
+  }
+
+  footer .footer-columns {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  footer .footer-columns h4:nth-of-type(2),
+  footer .footer-columns .footer-link-list:nth-of-type(2) {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  footer .footer-connect {
+    flex-direction: row;
+    gap: 40px;
+  }
+
+  footer .footer-connect > * {
+    flex: 1 1 0;
+  }
+}
+
+/* ==========================================================================
+   Desktop (L)
+   ========================================================================== */
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+  footer .footer {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 40px;
+    padding: 80px 80px 40px;
+  }
+
+  footer .footer-columns {
+    grid-column: 2 / 4;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  footer .footer-columns h4:nth-of-type(2),
+  footer .footer-columns .footer-link-list:nth-of-type(2) {
+    grid-column: 2;
+  }
+
+  footer .footer-columns h4:first-of-type,
+  footer .footer-columns .footer-link-list:first-of-type {
+    grid-column: 1;
+  }
+
+  footer .footer-connect {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  footer .footer-meta {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 24px 40px;
+  }
+
+  footer .footer-meta-links {
+    justify-content: center;
+  }
+
+  footer .footer-copyright {
+    text-align: right;
   }
 }
