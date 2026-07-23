@@ -26,19 +26,44 @@ function decorateBrand(region) {
 }
 
 /**
- * Turns each list item link in a link column into a chevron row.
+ * Tags each column link. The design uses plain text links (no chevron).
  * @param {Element} list The ul element
  */
-function decorateChevronList(list) {
+function decorateLinkList(list) {
   list.classList.add('footer-link-list');
   list.querySelectorAll('li > a').forEach((a) => {
     a.classList.add('footer-link');
-    const chevron = document.createElement('span');
-    chevron.className = 'footer-link-chevron';
-    chevron.setAttribute('aria-hidden', 'true');
-    chevron.textContent = '›';
-    a.append(chevron);
   });
+}
+
+/**
+ * Replaces icon spans with inline <svg> so glyphs inherit `currentColor`
+ * (white by default, gold on hover) instead of rendering as an isolated
+ * black <img>.
+ * @param {Element} scope Element containing `span.icon` nodes
+ */
+async function inlineIcons(scope) {
+  const icons = [...scope.querySelectorAll('span.icon')];
+  await Promise.all(icons.map(async (span) => {
+    const iconClass = [...span.classList].find((c) => c.startsWith('icon-'));
+    if (!iconClass) return;
+    const name = iconClass.slice(5);
+    try {
+      const resp = await fetch(`${window.hlx.codeBasePath}/icons/${name}.svg`);
+      if (!resp.ok) return;
+      const svgText = await resp.text();
+      const tmp = document.createElement('div');
+      tmp.innerHTML = svgText;
+      const svg = tmp.querySelector('svg');
+      if (!svg) return;
+      svg.removeAttribute('width');
+      svg.removeAttribute('height');
+      span.textContent = '';
+      span.append(svg);
+    } catch {
+      // leave the span as-is if the fetch fails
+    }
+  }));
 }
 
 /**
@@ -77,13 +102,40 @@ export default async function decorate(block) {
         col.append(move);
       }
     });
-    columns.querySelectorAll('ul').forEach((list) => decorateChevronList(list));
+    columns.querySelectorAll('ul').forEach((list) => decorateLinkList(list));
   }
 
   if (connect) {
     connect.classList.add('footer-connect');
+    // group each heading + its following content into a column
+    // (Connect with us | Stay updated)
+    [...connect.querySelectorAll('h4')].forEach((heading) => {
+      const col = document.createElement('div');
+      col.className = 'footer-connect-col';
+      heading.replaceWith(col);
+      col.append(heading);
+      let next = col.nextElementSibling;
+      while (next && next.tagName !== 'H4') {
+        const move = next;
+        next = next.nextElementSibling;
+        col.append(move);
+      }
+    });
     const social = connect.querySelector('ul');
-    if (social) social.classList.add('footer-social');
+    if (social) {
+      social.classList.add('footer-social');
+      // icon-only links: move the visible label into a visually-hidden span
+      social.querySelectorAll('li > a').forEach((a) => {
+        [...a.childNodes].forEach((node) => {
+          if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+            const label = document.createElement('span');
+            label.className = 'footer-social-label';
+            label.textContent = node.textContent.trim();
+            node.replaceWith(label);
+          }
+        });
+      });
+    }
     // the paragraph following "Stay updated" holds the Subscribe link
     const subscribe = connect.querySelector('h4 ~ p a');
     if (subscribe) subscribe.classList.add('footer-subscribe');
@@ -96,6 +148,16 @@ export default async function decorate(block) {
     if (links) links.classList.add('footer-meta-links');
     if (copyright) copyright.classList.add('footer-copyright');
   }
+
+  // group brand + link columns + connect into the top content row
+  const content = document.createElement('div');
+  content.className = 'footer-content';
+  [brand, columns, connect].forEach((region) => {
+    if (region) content.append(region);
+  });
+  footer.prepend(content);
+
+  await inlineIcons(footer);
 
   block.append(footer);
 }
