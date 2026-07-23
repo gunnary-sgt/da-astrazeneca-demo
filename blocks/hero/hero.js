@@ -120,16 +120,25 @@ export default function decorate(block) {
     || rows.map((r) => ({ row: r, cell: r.firstElementChild }))
       .find(({ row }) => ![bg, stat, links].some((m) => m && m.row === row));
 
+  // `image` variant with no authored picture uses the bundled investor background
+  const useBundledBg = block.classList.contains('image') && !bg;
+
   block.textContent = '';
 
-  if (bg) {
+  if (bg || useBundledBg) {
     const wrapper = document.createElement('div');
     wrapper.className = 'hero-bg';
-    const img = bg.cell.querySelector('img');
+    const img = bg && bg.cell.querySelector('img');
     if (img) {
       wrapper.append(createOptimizedPicture(img.src, img.alt, true, [{ width: '2000' }]));
-    } else {
+    } else if (bg) {
       wrapper.append(bg.cell.querySelector('picture'));
+    } else {
+      const bundled = document.createElement('img');
+      bundled.src = `${window.hlx.codeBasePath}/icons/investor_hero.jpg`;
+      bundled.alt = '';
+      bundled.loading = 'eager';
+      wrapper.append(bundled);
     }
     block.append(wrapper);
     block.classList.add('hero-image');
