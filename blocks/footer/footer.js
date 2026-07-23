@@ -46,6 +46,7 @@ export default async function decorate(block) {
 
   block.textContent = '';
   const footer = document.createElement('div');
+  footer.className = 'footer-inner';
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
   const regions = [...footer.children];
@@ -57,6 +58,19 @@ export default async function decorate(block) {
 
   if (columns) {
     columns.classList.add('footer-columns');
+    // group each heading + following list into a column
+    [...columns.querySelectorAll('h4')].forEach((heading) => {
+      const col = document.createElement('div');
+      col.className = 'footer-col';
+      heading.replaceWith(col);
+      col.append(heading);
+      let next = col.nextElementSibling;
+      while (next && next.tagName !== 'H4') {
+        const move = next;
+        next = next.nextElementSibling;
+        col.append(move);
+      }
+    });
     columns.querySelectorAll('ul').forEach((list) => decorateChevronList(list));
   }
 

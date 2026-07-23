@@ -9,7 +9,7 @@ footer {
   line-height: 20px;
 }
 
-footer .footer {
+footer .footer-inner {
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 1fr;
@@ -79,8 +79,13 @@ footer .footer-columns {
   gap: 40px;
 }
 
+/* let the default-content wrapper's children join the columns grid */
+footer .footer-columns > .default-content-wrapper {
+  display: contents;
+}
+
 footer .footer-link-list {
-  margin: 0 0 32px;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -199,7 +204,7 @@ footer .footer-copyright {
    Tablet (M)
    ========================================================================== */
 @media (width >= 600px) {
-  footer .footer {
+  footer .footer-inner {
     padding: 64px 40px 40px;
   }
 
@@ -210,12 +215,6 @@ footer .footer-copyright {
   footer .footer-columns {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-  }
-
-  footer .footer-columns h4:nth-of-type(2),
-  footer .footer-columns .footer-link-list:nth-of-type(2) {
-    grid-column: 2;
-    grid-row: 1 / span 2;
   }
 
   footer .footer-connect {
@@ -232,7 +231,7 @@ footer .footer-copyright {
    Desktop (L)
    ========================================================================== */
 @media (width >= 900px) {
-  footer .footer {
+  footer .footer-inner {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 40px;
     padding: 80px 80px 40px;
@@ -241,16 +240,6 @@ footer .footer-copyright {
   footer .footer-columns {
     grid-column: 2 / 4;
     grid-template-columns: 1fr 1fr;
-  }
-
-  footer .footer-columns h4:nth-of-type(2),
-  footer .footer-columns .footer-link-list:nth-of-type(2) {
-    grid-column: 2;
-  }
-
-  footer .footer-columns h4:first-of-type,
-  footer .footer-columns .footer-link-list:first-of-type {
-    grid-column: 1;
   }
 
   footer .footer-connect {
