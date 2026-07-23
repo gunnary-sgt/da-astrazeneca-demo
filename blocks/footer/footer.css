@@ -2,8 +2,8 @@
    AstraZeneca dark footer
    ========================================================================== */
 footer {
-  background-color: #1a1a1a;
-  color: var(--az-text-inverted);
+  background-color: var(--az-footer-background);
+  color: var(--az-footer-text);
   font-family: var(--az-font-body);
   font-size: 14px;
   line-height: 20px;
@@ -30,14 +30,14 @@ footer .footer p {
 }
 
 footer .footer a:any-link {
-  color: var(--az-text-inverted);
+  color: var(--az-footer-link);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 footer .footer a:hover,
 footer .footer a:focus-visible {
-  color: var(--az-gold-50);
+  color: var(--az-footer-link-hover);
   text-decoration: none;
 }
 
@@ -48,7 +48,7 @@ footer .footer h4 {
   font-weight: 400;
   font-size: 24px;
   line-height: 28px;
-  color: var(--az-text-inverted);
+  color: var(--az-footer-text);
 }
 
 footer .footer h4::after {
@@ -57,7 +57,7 @@ footer .footer h4::after {
   margin-top: 12px;
   width: 64px;
   height: 2px;
-  background-color: var(--az-gold-50);
+  background-color: var(--az-footer-border);
 }
 
 /* --- brand --- */
@@ -83,7 +83,7 @@ footer .footer-brand p {
   margin: 0;
   font-size: 14px;
   line-height: 24px;
-  color: var(--az-text-inverted);
+  color: var(--az-footer-text);
 }
 
 footer .footer-brand-logo {
@@ -103,11 +103,11 @@ footer .footer-brand-disclaimer::after {
   bottom: 0;
   width: 64px;
   height: 2px;
-  background-color: var(--az-gold-50);
+  background-color: var(--az-footer-border);
 }
 
 footer .footer-brand-legal {
-  color: var(--az-graphite-20);
+  color: var(--az-footer-subtext);
 }
 
 /* --- link columns --- */
@@ -176,15 +176,16 @@ footer .footer-social a:any-link {
   justify-content: center;
   width: 40px;
   height: 40px;
-  border: 1px solid var(--az-graphite-50);
+  border: 1px solid var(--az-icon-rounded-border);
   border-radius: var(--az-radius-circle);
-  color: var(--az-text-inverted);
+  background-color: var(--az-icon-rounded-bg);
+  color: var(--az-footer-icon);
 }
 
 footer .footer-social a:hover,
 footer .footer-social a:focus-visible {
-  border-color: var(--az-gold-50);
-  color: var(--az-gold-50);
+  border-color: var(--az-footer-icon-hover);
+  color: var(--az-footer-icon-hover);
 }
 
 footer .footer-social-label {
@@ -248,7 +249,7 @@ footer .footer-country .icon {
   display: inline-flex;
   width: 24px;
   height: 24px;
-  color: var(--az-text-inverted);
+  color: var(--az-footer-icon);
 }
 
 footer .footer-country .icon svg {
@@ -265,7 +266,7 @@ footer .footer-meta-links {
 }
 
 footer .footer-copyright {
-  color: var(--az-text-inverted);
+  color: var(--az-icon-static-inverted);
   font-size: 14px;
   line-height: 17px;
   text-align: right;

@@ -44,6 +44,9 @@
   --az-purple-50: #3c1053;
   --az-white-10: #fff;
   --az-white-20: #f8f8f8;
+  --az-black-10: #1a1a1a;
+  --az-black-10-high: #1a1a1acc;
+  --az-black-10-low: #1a1a1a4d;
 
   /* --- Color atoms: Secondary --- */
   --az-cyan-10: #e1f6f9;
@@ -60,6 +63,7 @@
   --az-green-20: #e7ef99;
   --az-green-30: #dbdd7a;
   --az-green-40: #c4d600;
+  --az-green-50: #007a36;
   --az-magenta-10: #e6ccdc;
   --az-magenta-20: #ec99c5;
   --az-magenta-30: #e366a9;
@@ -84,6 +88,33 @@
   --az-border-separator: #830051;
   --az-background-container: #fff;
   --az-background-container-blurry: rgb(255 255 255 / 80%);
+
+  /* --- Semantic colors: Footer --- */
+  --az-footer-background: #1a1a1a;
+  --az-footer-border: #f0ab00;
+  --az-footer-text: #fff;
+  --az-footer-subtext: #b2b4b4;
+  --az-footer-link: #fff;
+  --az-footer-link-hover: #f0ab00;
+  --az-footer-icon: #fff;
+  --az-footer-icon-hover: #f0ab00;
+
+  /* --- Semantic colors: Static & interactive icons --- */
+  --az-icon-rounded-bg: #1a1a1a;
+  --az-icon-rounded-border: #3c4242;
+  --az-icon-static: #3c4242;
+  --az-icon-static-inverted: #f8f8f8;
+  --az-icon-interactive: #830051;
+  --az-icon-interactive-hover: #4d0030;
+
+  /* --- Semantic colors: Statistic / data figures --- */
+  --az-statistic-text-base: #3c4242;
+  --az-statistic-text-highlight: #830051;
+  --az-statistic-positive: #007a36;
+  --az-statistic-negative: #d0006f;
+
+  /* --- Semantic colors: Graph --- */
+  --az-graph-separator: #830051;
 
   /* --- Type families --- */
   --az-font-headline: lexia, lexia-fallback, georgia, 'times new roman', serif;
@@ -127,6 +158,13 @@
   --az-content-gutter: 40px;
   --az-column-gutter: 110px;
 
+  /* --- Layout: footer & hero --- */
+  --az-footer-col-width: 290px;
+  --az-hero-width-text: 620px;
+  --az-hero-width-graph: 400px;
+  --az-hero-card-min: 240px;
+  --az-hero-card-max: 620px;
+
   /* ==========================================================================
      Boilerplate semantic variables (mapped to AstraZeneca tokens)
      ========================================================================== */
@@ -148,6 +186,11 @@
   --body-font-size-s: 16px;
   --body-font-size-xs: 14px;
   --body-line-height: 24px;
+
+  /* paragraph line-heights (large 24 / medium 20 / small 24) */
+  --az-paragraph-large-line-height: 24px;
+  --az-paragraph-medium-line-height: 20px;
+  --az-paragraph-small-line-height: 24px;
 
   /* heading sizes — S viewport (mobile, base) */
   --heading-font-size-xxl: 40px;

@@ -60,7 +60,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  max-width: 620px;
+  max-width: var(--az-hero-width-text);
 }
 
 .hero-content h1 {
@@ -271,7 +271,7 @@ a.hero-quicklink-link:focus-visible {
   }
 
   .hero-content {
-    flex: 0 1 620px;
+    flex: 0 1 var(--az-hero-width-text);
     gap: 32px;
   }
 
@@ -282,8 +282,8 @@ a.hero-quicklink-link:focus-visible {
 
   .hero-stat-card {
     display: flex;
-    flex: 0 0 400px;
-    width: 400px;
+    flex: 0 0 var(--az-hero-width-graph);
+    width: var(--az-hero-width-graph);
     gap: 24px;
     padding: 32px;
   }
