@@ -297,3 +297,13 @@ a.hero-quicklink-link:focus-visible {
     grid-template-columns: repeat(5, 1fr);
   }
 }
+
+/* ==========================================================================
+   Tablet-desktop (M): symmetric 291px columns per Figma (1024–1439)
+   ========================================================================== */
+@media (width >= 1024px) and (width < 1440px) {
+  .hero-top {
+    --az-hero-width-text: 291px;
+    --az-hero-width-graph: 291px;
+  }
+}
