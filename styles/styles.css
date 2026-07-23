@@ -207,20 +207,20 @@
   --az-paragraph-medium-line-height: 20px;
   --az-paragraph-small-line-height: 24px;
 
-  /* heading sizes — S viewport (mobile, base) */
-  --heading-font-size-xxl: 40px;
-  --heading-font-size-xl: 36px;
-  --heading-font-size-l: 32px;
-  --heading-font-size-m: 28px;
+  /* heading sizes — base = L viewport (≥1440); smaller tiers overridden below */
+  --heading-font-size-xxl: 58px;
+  --heading-font-size-xl: 48px;
+  --heading-font-size-l: 40px;
+  --heading-font-size-m: 32px;
   --heading-font-size-s: 24px;
   --heading-font-size-xs: 20px;
 
-  /* heading line-heights — S viewport (mobile, base) */
-  --heading-line-height-xxl: 48px;
-  --heading-line-height-xl: 40px;
-  --heading-line-height-l: 36px;
-  --heading-line-height-m: 32px;
-  --heading-line-height-s: 28px;
+  /* heading line-heights — base = L viewport (≥1440) */
+  --heading-line-height-xxl: 64px;
+  --heading-line-height-xl: 56px;
+  --heading-line-height-l: 48px;
+  --heading-line-height-m: 40px;
+  --heading-line-height-s: 32px;
   --heading-line-height-xs: 24px;
 
   /* nav height */
@@ -252,6 +252,22 @@
     --az-col-10: 763px;
     --az-col-11: 841px;
     --az-col-12: 920px;
+
+    /* heading sizes */
+    --heading-font-size-xxl: 52px;
+    --heading-font-size-xl: 44px;
+    --heading-font-size-l: 36px;
+    --heading-font-size-m: 32px;
+    --heading-font-size-s: 24px;
+    --heading-font-size-xs: 20px;
+
+    /* heading line-heights */
+    --heading-line-height-xxl: 60px;
+    --heading-line-height-xl: 52px;
+    --heading-line-height-l: 44px;
+    --heading-line-height-m: 40px;
+    --heading-line-height-s: 32px;
+    --heading-line-height-xs: 24px;
   }
 }
 
@@ -275,6 +291,22 @@
     --az-col-10: 688px;
     --az-col-11: 688px;
     --az-col-12: 688px;
+
+    /* heading sizes */
+    --heading-font-size-xxl: 48px;
+    --heading-font-size-xl: 40px;
+    --heading-font-size-l: 36px;
+    --heading-font-size-m: 32px;
+    --heading-font-size-s: 24px;
+    --heading-font-size-xs: 20px;
+
+    /* heading line-heights */
+    --heading-line-height-xxl: 56px;
+    --heading-line-height-xl: 48px;
+    --heading-line-height-l: 40px;
+    --heading-line-height-m: 36px;
+    --heading-line-height-s: 32px;
+    --heading-line-height-xs: 24px;
   }
 }
 
@@ -298,6 +330,22 @@
     --az-col-10: 335px;
     --az-col-11: 335px;
     --az-col-12: 335px;
+
+    /* heading sizes */
+    --heading-font-size-xxl: 40px;
+    --heading-font-size-xl: 36px;
+    --heading-font-size-l: 32px;
+    --heading-font-size-m: 28px;
+    --heading-font-size-s: 24px;
+    --heading-font-size-xs: 20px;
+
+    /* heading line-heights */
+    --heading-line-height-xxl: 48px;
+    --heading-line-height-xl: 40px;
+    --heading-line-height-l: 36px;
+    --heading-line-height-m: 32px;
+    --heading-line-height-s: 28px;
+    --heading-line-height-xs: 24px;
   }
 }
 
@@ -312,48 +360,6 @@
   font-family: roboto-fallback;
   size-adjust: 99.529%;
   src: local('Arial');
-}
-
-/* M viewport (tablet) */
-@media (width >= 600px) {
-  :root {
-    /* heading sizes */
-    --heading-font-size-xxl: 48px;
-    --heading-font-size-xl: 40px;
-    --heading-font-size-l: 36px;
-    --heading-font-size-m: 32px;
-    --heading-font-size-s: 24px;
-    --heading-font-size-xs: 20px;
-
-    /* heading line-heights */
-    --heading-line-height-xxl: 56px;
-    --heading-line-height-xl: 48px;
-    --heading-line-height-l: 40px;
-    --heading-line-height-m: 36px;
-    --heading-line-height-s: 32px;
-    --heading-line-height-xs: 24px;
-  }
-}
-
-/* L viewport (desktop) */
-@media (width >= 900px) {
-  :root {
-    /* heading sizes */
-    --heading-font-size-xxl: 58px;
-    --heading-font-size-xl: 48px;
-    --heading-font-size-l: 40px;
-    --heading-font-size-m: 32px;
-    --heading-font-size-s: 24px;
-    --heading-font-size-xs: 20px;
-
-    /* heading line-heights */
-    --heading-line-height-xxl: 64px;
-    --heading-line-height-xl: 56px;
-    --heading-line-height-l: 48px;
-    --heading-line-height-m: 40px;
-    --heading-line-height-s: 32px;
-    --heading-line-height-xs: 24px;
-  }
 }
 
 body {
