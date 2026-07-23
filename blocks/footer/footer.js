@@ -136,14 +136,17 @@ export default async function decorate(block) {
         });
       });
     }
-    // the paragraph following "Stay updated" holds the Subscribe link
-    const subscribe = connect.querySelector('h4 ~ p a');
+    // the Subscribe link sits in a <p> (not inside the social list)
+    const subscribe = [...connect.querySelectorAll('p a')]
+      .find((a) => !a.closest('.footer-social'));
     if (subscribe) subscribe.classList.add('footer-subscribe');
   }
 
   if (meta) {
     meta.classList.add('footer-meta');
-    const [countrySelector, links, copyright] = [...meta.children];
+    // paragraphs live inside a default-content-wrapper; classify those
+    const wrapper = meta.querySelector('.default-content-wrapper') || meta;
+    const [countrySelector, links, copyright] = [...wrapper.children];
     if (countrySelector) countrySelector.classList.add('footer-country');
     if (links) links.classList.add('footer-meta-links');
     if (copyright) copyright.classList.add('footer-copyright');
