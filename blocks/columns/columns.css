@@ -19,11 +19,12 @@
   display: block;
 }
 
-@media (width >= 900px) {
+/* from S viewport (≥768) columns sit side-by-side using the grid gutter */
+@media (width >= 768px) {
   .columns > div {
     align-items: center;
     flex-direction: unset;
-    gap: 24px;
+    gap: var(--az-content-gutter);
   }
 
   .columns > div > div {
