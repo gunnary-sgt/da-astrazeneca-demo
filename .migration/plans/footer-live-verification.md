@@ -1,61 +1,71 @@
-# Grid System Correction Plan — Per-Viewport Tokens
+I'll read the current typography and radius tokens plus how headings are styled, then compare against the four mode files.Now let me find where the heading sizes are overridden per viewport and how h1–h6 map to the boilerplate variables.Let me see the breakpoint boundaries for the heading overrides at lines 315–356.I found real discrepancies. Let me confirm the direction question before finalizing.# Typography Design Tokens — Analysis & Update Plan
 
-## Problem
-The current grid implementation is wrong. My earlier version used one fixed column scale (L values) + only 3 margin tiers with incorrect breakpoints. The four `*.tokens.json` mode files reveal the grid is **fully mode-dependent** — content-grid width, margin, gutter, column-gutter, **and every column width** change per viewport. My breakpoint boundaries were also off.
+## Summary
+I diffed the four typography mode files (XS/S/M/L) against the current `styles.css`. **Updates ARE needed.** The type scale has two real problems:
 
-## Correct spec (from the 4 token JSON files)
+1. **Wrong breakpoints + missing tier.** The heading media queries use `600px` / `900px` (only 3 tiers total). The tokens define **four** modes at `375 / 768 / 1024 / 1440`. The **M tier (1024–1440) is entirely missing**, and the current "L" values are applied from 900px up — so 900–1439px shows desktop headings that should be one or two steps smaller.
+2. **Direction mismatch.** Per your choice, the type scale will be reworked **desktop-first (max-width, base = L)** to match the grid system, replacing the current mobile-first `min-width` `600/900` scheme.
 
-**Breakpoints (`viewport-grid`) + content area + gutters:**
+Font families, weights, paragraph sizes/line-heights, and border-radius are **already correct** — no change.
 
-| Mode | Breakpoint | content-grid | margin | gutter | column-gutter |
+## The token contract (h1–h6 = xxl…xs)
+
+**Font size (px):**
+| Var | h-tag | XS | S | M | L |
 |---|---|---|---|---|---|
-| **XS** | 375 | 335 | 20 | 24 | 90 |
-| **S**  | 768 | 688 | 40 | 24 | 89 |
-| **M**  | 1024 | 920 | 52 | 24 | 79 |
-| **L**  | 1440 | 1280 | 80 | 40 | 110 |
+| xxl | h1 | 40 | 48 | **52** | 58 |
+| xl | h2 | 36 | 40 | **44** | 48 |
+| l | h3 | 32 | 36 | 36 | 40 |
+| m | h4 | 28 | 32 | 32 | 32 |
+| s | h5 | 24 | 24 | 24 | 24 |
+| xs | h6 | 20 | 20 | 20 | 20 |
 
-**Key corrections vs. current code:**
-1. **Gutter is 24px at XS/S/M**, only **40px at L** (current uses 40 everywhere).
-2. **Margins:** XS 20 / S 40 / **M 52** / L 80 (current had no 52; used 40 for both M and S; wrong breakpoints).
-3. **Breakpoints:** XS starts 375, S 768, M **1024**, L 1440 (current used 600/768/900/1440 — all wrong).
-4. **content-grid caps differ per mode** (335 / 688 / 920 / 1280) — not a single 1280 cap.
-5. **Column widths are per-mode** (e.g. 3-col = 245 XS / 243 S / 212 M / 290 L). At XS, cols 4–12 all clamp to 335 (full width); at S, cols 8–12 clamp to 688 — i.e. beyond a point columns span full width.
+**Line height (px):**
+| Var | h-tag | XS | S | M | L |
+|---|---|---|---|---|---|
+| xxl | h1 | 48 | 56 | **60** | 64 |
+| xl | h2 | 40 | 48 | **52** | 56 |
+| l | h3 | 36 | 40 | **44** | 48 |
+| m | h4 | 32 | 36 | **40** | 40 |
+| s | h5 | 28 | 32 | 32 | 32 |
+| xs | h6 | 24 | 24 | 24 | 24 |
 
-**Spacing scale:** identical across all modes (0–80, ×4) — already correct, no change.
+## Discrepancies vs. current CSS
 
-## Interpretation for CSS (mobile-first breakpoints)
-Figma "mode = max/nominal width of tier." Map to `min-width` media queries by the tier's entry width:
-- base (XS, ≥375): margin 20, gutter 24, content-grid 335, XS column set
-- **≥768** (S): margin 40, gutter 24, content-grid 688, S column set
-- **≥1024** (M): margin 52, gutter 24, content-grid 920, M column set
-- **≥1440** (L): margin 80, gutter 40, content-grid 1280, L column set
+**Current base `:root` (should be L, currently mislabeled "S/mobile"):** values are `xxl 40/48, xl 36/40, l 32/36, m 28/32, s 24/28, xs 20/24` — these are the **XS** numbers, not L. Base must become L.
 
-Section container: `max-width: content-grid + margin*2` per tier, `padding: 0 margin`, `box-sizing: border-box` (already set). This yields the exact content caps (375→335, 768→688, 1024→920, 1440→1280) with correct margins.
+**Missing M tier (1024–1440):** none of `h1 52/60, h2 44/52, h3 36/44, h4 32/40` exist anywhere in the file. This is the biggest gap — the whole M column is absent.
 
-## Plan
-1. **Replace grid tokens in `styles.css`:**
-   - `--az-content-grid`, `--az-content-margin`, `--az-content-gutter`, `--az-column-gutter` become **per-breakpoint** (redefined in each media query), not single global values.
-   - Add per-mode column-width sets, or (leaner) keep only the **L** `--az-col-1…12` as the canonical scale and add S/M/XS overrides only if a block needs them. **Recommendation:** redefine `--az-col-*` per breakpoint too, since they genuinely differ — but scope to what's used. (Open question below.)
-2. **Fix breakpoints:** replace the current `600/768/900` media queries in the grid/section rules with **768 / 1024 / 1440**.
-3. **Fix gutter:** base 24 → 40 only at ≥1440.
-4. **Fix margins:** 20 / 40 / 52 / 80 at base / 768 / 1024 / 1440.
-5. **Section container:** drive `max-width` and `padding` off the per-tier `--az-content-margin` + `--az-content-grid`.
-6. **Audit collateral:** the earlier token edit set `--az-margin-xs/s/m/l` and `--az-content-margin-current` — reconcile/replace so there's one coherent system. Also check header/footer/hero don't rely on the old 900px breakpoint for grid (they have their own component breakpoints — leave those unless they reference `--az-content-*`).
+**`@media (>=600px)` block** currently holds the **S** values (48/40/36/32/24/20 sizes) but is gated at the wrong width (600 not 768).
+
+**`@media (>=900px)` block** currently holds the **L** values but is gated at 900 (should be 1440) — so M-range screens wrongly get L headings.
+
+**Also note:** the current base has an `h4/m = 28px` with line-height 32 (XS values). At S/M/L, h4 = 32px. The desktop-first base fixes this since base becomes L (h4 = 32).
+
+## Plan (desktop-first, mirroring the grid)
+1. **Rewrite base `:root` heading vars → L values:** `xxl 58/64, xl 48/56, l 40/48, m 32/40, s 24/32, xs 20/24`.
+2. **Replace** the `@media (>=600px)` and `@media (>=900px)` heading blocks with **three max-width overrides** placed alongside the existing grid overrides:
+   - `@media (width < 1440px)` → **M**: sizes `52/44/36/32/24/20`, line-heights `60/52/44/40/32/24`
+   - `@media (width < 1024px)` → **S**: sizes `48/40/36/32/24/20`, line-heights `56/48/40/36/32/24`
+   - `@media (width < 768px)` → **XS**: sizes `40/36/32/28/24/20`, line-heights `48/40/36/32/28/24`
+3. **Leave unchanged (verified correct):** font families (Lexia / Helvetica Neue), border radius (0/2/4/8/24/4000 → none/small/medium/large/xl/circle), paragraph sizes (`--body-font-size-m/s/xs` = 16/16/14) and paragraph line-heights (24/20/24). Note: paragraph-medium line-height is 20 at XS/M but 24 at S/L per tokens — currently a single 20px; flag as a minor known simplification (paragraphs are not viewport-swapped today), not part of this change unless you want it.
+4. `npm run lint`, then Playwright-verify an `h1` computed `font-size`/`line-height` at 375 (40/48), 900 (48/56 — now correctly S, was wrongly 58/64), 1200 (52/60 — the new M tier), 1500 (58/64).
 
 ## Checklist
-- [ ] Read current `styles.css` grid/section block + grep for `--az-content-*`, `--az-col-*`, `--az-margin-*`, `900px`, `600px` usages across `blocks/**` to find dependents
-- [ ] Redefine base (XS) grid tokens: content-grid 335, margin 20, gutter 24, column-gutter 90, XS column widths
-- [ ] Add `@media (width >= 768px)` S overrides: content-grid 688, margin 40, gutter 24, column-gutter 89, S columns
-- [ ] Add `@media (width >= 1024px)` M overrides: content-grid 920, margin 52, gutter 24, column-gutter 79, M columns
-- [ ] Add `@media (width >= 1440px)` L overrides: content-grid 1280, margin 80, gutter 40, column-gutter 110, L columns
-- [ ] Update `main > .section > div` to use per-tier `--az-content-grid` + `--az-content-margin` (keep `border-box`)
-- [ ] Remove/replace the interim `--az-margin-xs/s/m/l` + `--az-content-margin-current` scheme so tokens are consistent
-- [ ] Confirm spacing scale unchanged (no edits)
+- [x] Read current typography + radius tokens and heading media queries in `styles.css`
+- [x] Diff font families / weights / radius vs XS/S/M/L files — all match, no change
+- [x] Diff heading size + line-height scale per tier — found wrong breakpoints (600/900), missing M tier, base mislabeled
+- [x] Confirm breakpoint direction with user — desktop-first (match grid)
+- [ ] Rewrite base `:root` heading vars to **L** values (58/48/40/32/24/20 · 64/56/48/40/32/24)
+- [ ] Add `@media (width < 1440px)` **M** heading override (the currently-missing tier)
+- [ ] Add `@media (width < 1024px)` **S** heading override; remove old `@media (>=600px)` block
+- [ ] Add `@media (width < 768px)` **XS** heading override; remove old `@media (>=900px)` block
+- [ ] Confirm paragraph sizes/line-heights + radius + font families untouched (already correct)
 - [ ] `npm run lint` (CSS)
-- [ ] Playwright verify content width + margin at 375 (335/20), 768 (688/40), 1024 (920/52), 1440 (1280/80)
+- [ ] Playwright-verify `h1` at 375 / 900 / 1200 / 1500 → 40/48 · 48/56 · 52/60 · 58/64
 - [ ] Commit + push; confirm live at the 4 tiers
 
-## Open questions
-- **Column-width tokens scope:** (a) full per-mode `--az-col-1…12` in every breakpoint (most faithful, larger CSS), or (b) keep single L scale + only override where a real multi-column block needs it (leaner). Which do you want?
-- **Breakpoint direction:** confirm mobile-first `min-width` at 768/1024/1440 (recommended) vs. matching Figma's max-width mode labels.
-- Requires **Execute mode** to write files.
+## Open question (minor, non-blocking)
+- Paragraph-medium line-height differs per tier in the tokens (20 at XS/M, 24 at S/L) but is a single 20px today. Fold this into the change, or leave paragraphs as-is? Recommend **leave as-is** unless you want full paragraph tiering.
+
+*Execution requires Execute mode; the above is analysis + plan only.*
