@@ -59,6 +59,17 @@ header nav[aria-expanded='true'] {
   }
 }
 
+/* M (1024–1439): tighter gaps so the full nav fits the content grid (Figma) */
+@media (width >= 1024px) and (width < 1440px) {
+  header nav {
+    gap: 0 var(--az-content-gutter);
+  }
+
+  header nav .nav-sections .default-content-wrapper > ul {
+    gap: var(--az-content-gutter);
+  }
+}
+
 header nav p {
   margin: 0;
   line-height: 1;
