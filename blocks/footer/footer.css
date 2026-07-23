@@ -35,41 +35,65 @@ footer .footer a:focus-visible {
   text-decoration: none;
 }
 
-/* section headings with gold underline */
+/* section headings — Lexia 24px with a short gold bar underneath */
 footer .footer h4 {
-  margin: 0 0 20px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid var(--az-gold-50);
+  position: relative;
+  margin: 0 0 32px;
+  padding-bottom: 14px;
   font-family: var(--az-font-headline);
   font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 24px;
+  line-height: 32px;
   color: var(--az-text-inverted);
+}
+
+footer .footer h4::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 64px;
+  height: 2px;
+  background-color: var(--az-gold-50);
 }
 
 /* --- brand --- */
 footer .footer-brand {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  max-width: 340px;
+  gap: 32px;
+  max-width: 290px;
 }
 
 footer .footer-brand img {
-  width: 160px;
+  width: 180px;
   height: auto;
 }
 
 footer .footer-brand p {
-  color: var(--az-graphite-20);
-  line-height: 22px;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--az-text-inverted);
+}
+
+/* gold bar divider between disclaimer and the Veeva/review lines */
+footer .footer-brand p:first-of-type {
+  position: relative;
+  padding-bottom: 34px;
+}
+
+footer .footer-brand p:first-of-type::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 64px;
+  height: 2px;
+  background-color: var(--az-gold-50);
 }
 
 footer .footer-brand p:last-child {
-  padding-top: 24px;
-  border-top: 2px solid var(--az-gold-50);
-  font-size: 14px;
-  color: var(--az-graphite-30);
+  color: var(--az-graphite-20);
 }
 
 /* --- link columns --- */
@@ -85,26 +109,26 @@ footer .footer-columns > .default-content-wrapper {
 }
 
 footer .footer-link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-footer .footer-link-list li {
-  border-bottom: 1px solid rgb(255 255 255 / 12%);
 }
 
 footer .footer-link {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 12px 0;
+  gap: 40px;
+  font-size: 14px;
+  line-height: 20px;
 }
 
 footer .footer-link-chevron {
   flex: 0 0 auto;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1;
 }
 
@@ -157,9 +181,17 @@ footer .footer-social a:focus-visible .icon {
   color: var(--az-gold-50);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
+footer .footer-connect p {
+  font-size: 14px;
+  line-height: 18px;
+}
+
 footer .footer-subscribe {
   display: inline-block;
   margin-top: 8px;
+  font-family: var(--az-font-headline);
+  font-size: 16px;
 }
 
 /* --- meta nav --- */
@@ -167,8 +199,10 @@ footer .footer-meta {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding-top: 24px;
-  border-top: 1px solid rgb(255 255 255 / 12%);
+}
+
+footer .footer-meta > .default-content-wrapper {
+  display: contents;
 }
 
 footer .footer-country {
@@ -196,8 +230,9 @@ footer .footer-meta-links {
 }
 
 footer .footer-copyright {
-  color: var(--az-graphite-30);
+  color: var(--az-text-inverted);
   font-size: 14px;
+  line-height: 17px;
 }
 
 /* ==========================================================================
@@ -250,13 +285,16 @@ footer .footer-copyright {
   footer .footer-meta {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 290px 1fr auto;
     align-items: center;
     gap: 24px 40px;
   }
 
   footer .footer-meta-links {
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 16px;
+    white-space: nowrap;
   }
 
   footer .footer-copyright {

@@ -12,8 +12,8 @@ function decorateBrand(region) {
     const logo = document.createElement('img');
     logo.src = `${window.hlx.codeBasePath}/icons/astrazeneca-logo-inverted.png`;
     logo.alt = link.textContent.trim() || 'AstraZeneca';
-    logo.width = 160;
-    logo.height = 41;
+    logo.width = 180;
+    logo.height = 46;
     link.textContent = '';
     link.append(logo);
   }
