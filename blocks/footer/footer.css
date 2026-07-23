@@ -14,9 +14,9 @@ footer .footer-inner {
   display: flex;
   flex-direction: column;
   gap: 40px;
-  max-width: 1440px;
+  max-width: calc(var(--az-content-grid) + (var(--az-content-margin) * 2));
   margin: 0 auto;
-  padding: 40px 24px;
+  padding: 40px var(--az-content-margin);
 }
 
 footer .footer-content {
@@ -275,9 +275,9 @@ footer .footer-copyright {
 /* ==========================================================================
    Tablet (M)
    ========================================================================== */
-@media (width >= 600px) {
+@media (width >= 768px) {
   footer .footer-inner {
-    padding: 40px;
+    padding-block: 40px;
   }
 
   footer .footer h4 {
@@ -308,10 +308,10 @@ footer .footer-copyright {
 /* ==========================================================================
    Desktop (L)
    ========================================================================== */
-@media (width >= 900px) {
+@media (width >= 1024px) {
   footer .footer-inner {
     gap: 64px;
-    padding: 80px 80px 8px;
+    padding-block: 80px 8px;
   }
 
   footer .footer-content {
