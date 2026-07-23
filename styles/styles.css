@@ -158,6 +158,32 @@
   --az-content-gutter: 40px;
   --az-column-gutter: 110px;
 
+  /* grid: 12 columns, 40px gutter, 1280 content area */
+  --az-grid-columns: 12;
+
+  /* column widths (n columns incl. inner gutters, in a 1280 grid) */
+  --az-col-1: 70px;
+  --az-col-2: 180px;
+  --az-col-3: 290px;
+  --az-col-4: 400px;
+  --az-col-5: 510px;
+  --az-col-6: 620px;
+  --az-col-7: 730px;
+  --az-col-8: 840px;
+  --az-col-9: 950px;
+  --az-col-10: 1060px;
+  --az-col-11: 1170px;
+  --az-col-12: 1280px;
+
+  /* responsive side margins per viewport tier */
+  --az-margin-xs: 20px; /* 375–768 */
+  --az-margin-s: 40px;  /* 768–1024 */
+  --az-margin-m: 40px;  /* 1024–1440 */
+  --az-margin-l: 80px;  /* 1440+ */
+
+  /* active content margin (mobile-first; overridden per breakpoint) */
+  --az-content-margin-current: var(--az-margin-xs);
+
   /* --- Layout: footer & hero --- */
   --az-footer-col-width: 290px;
   --az-hero-width-text: 620px;
@@ -526,24 +552,33 @@ main img {
   width: 100%;
 }
 
-/* sections */
+/* sections — AstraZeneca grid: 1280 content area + responsive margins */
 main > .section {
   margin: 40px 0;
 }
 
 main > .section > div {
-  max-width: 1200px;
+  box-sizing: border-box;
+  max-width: calc(var(--az-content-grid) + (var(--az-content-margin-current) * 2));
   margin: auto;
-  padding: 0 24px;
+  padding: 0 var(--az-content-margin-current);
 }
 
 main > .section:first-of-type {
   margin-top: 0;
 }
 
-@media (width >= 900px) {
-  main > .section > div {
-    padding: 0 32px;
+/* S viewport: 768–1024 → 40px margins */
+@media (width >= 768px) {
+  :root {
+    --az-content-margin-current: var(--az-margin-s);
+  }
+}
+
+/* L viewport: 1440+ → 80px margins */
+@media (width >= 1440px) {
+  :root {
+    --az-content-margin-current: var(--az-margin-l);
   }
 }
 
