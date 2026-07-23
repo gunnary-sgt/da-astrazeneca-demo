@@ -1,3 +1,6 @@
+/* ==========================================================================
+   Investor hero
+   ========================================================================== */
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -5,33 +8,279 @@
 
 .hero {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  background-color: var(--az-white-20);
 }
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
-
-.hero picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
+.hero-inner {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-.hero img {
-  object-fit: cover;
+.hero-top {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* --- background image mode --- */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-bg picture,
+.hero-bg img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
+.hero.hero-image .hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- content column --- */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 620px;
+}
+
+.hero-content h1 {
+  margin: 0;
+  font-family: var(--az-font-headline);
+  font-weight: 400;
+  color: var(--az-text-base);
+}
+
+.hero-content h1 em {
+  font-style: italic;
+  color: var(--az-text-highlight);
+}
+
+.hero-content p {
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--az-text-base);
+}
+
+.hero-content .button-container {
+  margin: 8px 0 0;
+}
+
+/* --- stat card --- */
+.hero-stat-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 24px;
+  border-radius: var(--az-radius-medium);
+  background-color: var(--az-background-container);
+}
+
+.hero-stat-eyebrow {
+  margin: 0;
+  font-family: var(--az-font-body);
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--az-text-data);
+}
+
+.hero-stat-card .hero-stat-label {
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--az-text-base);
+}
+
+.hero-stat-card .hero-stat-value {
+  margin: 0;
+  font-family: var(--az-font-headline);
+  font-size: 40px;
+  line-height: 48px;
+  color: var(--az-text-data);
+}
+
+.hero-stat-card .hero-stat-value strong {
+  font-weight: 400;
+}
+
+.hero-stat-card .hero-stat-cagr {
+  margin: 8px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--az-mulberry-50);
+  font-size: 24px;
+  line-height: 32px;
+  color: var(--az-text-base);
+}
+
+.hero-stat-card .hero-stat-source {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--az-graphite-40);
+}
+
+.hero-chart {
+  width: 100%;
+  height: 120px;
+}
+
+/* --- quick links --- */
+.hero-quicklinks ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-quicklink {
+  margin: 0;
+}
+
+a.hero-quicklink-link:any-link {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 100%;
+  padding: 24px;
+  border: 1px solid var(--az-graphite-10);
+  border-radius: var(--az-radius-medium);
+  background-color: var(--az-background-container);
+  font-family: var(--az-font-headline);
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--az-text-base);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+a.hero-quicklink-link:hover,
+a.hero-quicklink-link:focus-visible {
+  border-color: var(--az-mulberry-50);
+  color: var(--az-mulberry-50);
+  text-decoration: none;
+}
+
+.hero-quicklink-arrow {
+  flex: 0 0 auto;
+}
+
+/* ==========================================================================
+   Dark mode
+   ========================================================================== */
+.hero.dark {
+  background: linear-gradient(120deg, #1b0a2e 0%, #002140 60%, #001a33 100%);
+}
+
+.hero.dark .hero-content h1,
+.hero.dark .hero-content p {
+  color: var(--az-text-inverted);
+}
+
+.hero.dark .hero-content h1 em {
+  color: var(--az-magenta-40);
+}
+
+.hero.dark .hero-stat-card {
+  background-color: var(--az-background-container-blurry);
+  backdrop-filter: blur(6px);
+}
+
+/* ==========================================================================
+   Image mode — translucent card over photo
+   ========================================================================== */
+.hero.hero-image .hero-stat-card {
+  background-color: var(--az-background-container-blurry);
+  backdrop-filter: blur(6px);
+}
+
+/* ==========================================================================
+   Tablet (M)
+   ========================================================================== */
+@media (width >= 600px) {
+  .hero-inner {
+    padding: 48px 40px;
+    gap: 48px;
+  }
+
+  .hero-stat-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+    align-items: start;
+  }
+
+  .hero-stat-eyebrow,
+  .hero-chart,
+  .hero-stat-source {
+    grid-column: 1 / -1;
+  }
+
+  .hero-quicklinks ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==========================================================================
+   Desktop (L)
+   ========================================================================== */
 @media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
+  .hero-inner {
+    gap: 64px;
+    padding: 64px 80px;
+  }
+
+  .hero-top {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    gap: 40px;
+  }
+
+  .hero-content {
+    flex: 0 1 620px;
+    gap: 32px;
+  }
+
+  .hero-content h1 {
+    font-size: var(--heading-font-size-xxl);
+    line-height: var(--heading-line-height-xxl);
+  }
+
+  .hero-stat-card {
+    display: flex;
+    flex: 0 0 400px;
+    width: 400px;
+    gap: 24px;
+    padding: 32px;
+  }
+
+  .hero-stat-card .hero-stat-value {
+    font-size: 48px;
+    line-height: 56px;
+  }
+
+  .hero-quicklinks ul {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
