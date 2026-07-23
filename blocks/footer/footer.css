@@ -16,7 +16,7 @@ footer .footer-inner {
   gap: 40px;
   max-width: calc(var(--az-content-grid) + (var(--az-content-margin) * 2));
   margin: 0 auto;
-  padding: 40px var(--az-content-margin);
+  padding: var(--az-content-margin);
 }
 
 footer .footer-content {
@@ -276,10 +276,6 @@ footer .footer-copyright {
    Tablet (M)
    ========================================================================== */
 @media (width >= 768px) {
-  footer .footer-inner {
-    padding-block: 40px;
-  }
-
   footer .footer h4 {
     line-height: 32px;
   }
@@ -308,10 +304,10 @@ footer .footer-copyright {
 /* ==========================================================================
    Desktop (L)
    ========================================================================== */
-@media (width >= 1024px) {
+@media (width >= 1440px) {
   footer .footer-inner {
     gap: 64px;
-    padding-block: 80px 8px;
+    padding-bottom: 8px;
   }
 
   footer .footer-content {
