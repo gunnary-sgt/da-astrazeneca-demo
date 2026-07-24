@@ -275,10 +275,15 @@ header nav .nav-sections ul > li a:focus-visible {
     visibility: hidden;
   }
 
+  header nav .nav-brand {
+    transform: translateY(-2px);
+  }
+
   header nav .nav-sections {
     display: block;
     visibility: visible;
     white-space: nowrap;
+    transform: translateY(2px);
   }
 
   header nav[aria-expanded='true'] .nav-sections {
