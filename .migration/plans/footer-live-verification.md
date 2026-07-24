@@ -1,46 +1,62 @@
-# Footer Block — Figma-Grounded Analysis & Fix Plan
+# Sauberer Neuaufbau: Reset + frische Figma-Tokens (mobile-first)
 
-## Key finding (from the 4 Figma frames)
-The footer's **desktop breakpoint is wrong**. The current CSS switches to the desktop single-row 4-column layout at **≥1024px**, but Figma shows the **M viewport (1024–1439) still uses the tablet layout** (brand full-width, link columns 2-up, connect 2-up, meta stacked). The desktop row layout only begins at **L (1440)**. This is the same class of bug as the typography M-tier — the 1024–1439 range is being given L styling.
+## Ziel
+Projekt auf die Boilerplate-Basis zurücksetzen und das Design **von Grund auf sauber** neu aufbauen — mit frisch aus Figma gelieferten Token-JSONs und einem **konsistenten mobile-first Breakpoint-System**. Damit verschwinden die inkonsistenten desktop-first M-Tier-Patches, die das aktuelle UI-/Breakpoint-Verhalten verursachen.
 
-This was verified live earlier: at 1200px the footer rendered `display:flex` row with `padding 52 / 80 / 8` — i.e. desktop layout — when it should be the tablet layout with symmetric 52px padding.
+**Deine Entscheidungen:**
+- Ansatz: **Reset + sauberer Neuaufbau** (`main` → `c9bbc0e`, Backup vorher)
+- Breakpoints: **Mobile-first** (Basis = XS, dann `min-width` 768 / 1024 / 1440) — AEM-Standard, robuster
+- Token-Quelle: **Du lieferst die Token-JSONs** (Farben, Typo, Grid/Spacing, Komponenten) frisch aus Figma
 
-## Exact per-tier spec (from Figma dev mode)
-| Tier | Container padding | Section gap | Brand | Link columns | Connect/Newsletter | Meta nav |
-|---|---|---|---|---|---|---|
-| **XS** <768 | 20 all | 40 | full, stacked | each full-width, stacked | each full, stacked | stacked, links wrap |
-| **S** 768–1023 | 40 all | 40 | full (688) | **2-up row** | **2-up row** | stacked column |
-| **M** 1024–1439 | 52 all | 40 | full (920) | **2-up row** | **2-up row** | stacked column |
-| **L** ≥1440 | 80 / 80 / **8** | 64 | 290 | 290+290 row (=620) | 290 column | **row** (country 290 · links · copyright) |
+## Ursachenanalyse (warum das aktuelle Verhalten kaputt ist)
+- Das bestehende System ist **desktop-first (Basis = L)** mit pro-Komponente nachgeflickten M-Tier-Overrides (Footer, Hero, Header). Dadurch bekam der 1024–1439-Bereich mehrfach L-Styling → Overflow, falsche Layouts.
+- Mehrere Token-JSONs waren zudem **Figma-Export-Artefakte** (Grid-Collection auf L-Mode gepinnt). Ein sauberer Neustart mit korrekt exportierten JSONs verhindert das.
 
-Note: vertical padding equals the grid's `--az-content-margin` at every tier (20/40/52/80) — only L's **bottom** is special (8px). Column inner widths (290) and columns-group (620) at L already match current CSS.
+## Phase 1 — Reset (destruktiv, Execute-Mode + Freigabe nötig)
+1. Read-only-Bestandsaufnahme: `git remote -v`, `git branch -a`, `git status`, `git log origin/main`.
+2. **Backup-Branch** `backup/az-work-2026-07-24` am aktuellen AZ-Tip anlegen + zu `origin` pushen (alles wiederherstellbar).
+3. Auf `main` wechseln, mit `origin/main` abgleichen.
+4. `git reset --hard c9bbc0e` → Boilerplate-Basis.
+5. `git push --force-with-lease origin main`.
+6. Verifizieren: lokal & `origin/main` = nur `c9bbc0e`; Backup-Branch vorhanden.
 
-## Resolution of the 3 previously-blocking questions
-The four component-token files (`footer-col-fullwidth` = 400/840/1280, `-half` = 400/400/620) are **Figma export artifacts** — the aliased Grid variable collection was pinned to L mode at export, so every tier resolved to the L grid's 4/8/12-col widths (that's also why hero `width-text` reads 840 inside the 688-wide S grid). They do not describe real per-viewport widths.
-1. **L conflict** → Keep today's 290/620 (Figma-correct). Do **not** apply literal 290/290.
-2. **M overflow** → Non-issue: M uses the tablet 2-up layout inside the 920 grid, never a 1280 full-width. Do **not** apply literal 1280.
-3. **Token→element mapping** → N/A. The width tokens are **not wired in**. The real fix is the breakpoint + padding, taken from the frames.
+## Phase 2 — Fundament: Tokens + mobile-first Grid
+7. **Token-JSONs von dir einlesen** (du lieferst sie): Farben (Light), Typographie (XS/S/M/L), Grid & Spacing (XS/S/M/L), Komponenten. Ich prüfe sie zuerst auf Konsistenz (z. B. ob Werte in ihren eigenen Grid passen), damit keine Export-Artefakte durchrutschen.
+8. **`styles/styles.css` neu schreiben**, mobile-first:
+   - `:root` = **XS**-Basiswerte (Tokens, Grid-Margin/Gutter/Content-Width, Spacing, Heading-Scale).
+   - Aufsteigende `@media (min-width: 768px / 1024px / 1440px)` überschreiben pro Tier.
+   - Fonts (Lexia / Helvetica Neue) + Radius wie gehabt.
+9. Grid-/Section-Container-Regel mobile-first (Content-Cap + Margins per Tier), `box-sizing: border-box`.
 
-## Planned CSS changes (`blocks/footer/footer.css`)
-1. **Base `.footer-inner`:** change `padding: 40px var(--az-content-margin)` → `padding: var(--az-content-margin)` (auto-yields 20/40/52/80 symmetric per tier).
-2. **`@media (width >= 768px)`:** remove the now-redundant `padding-block: 40px` (token handles it). Keep the tablet row rules (columns row, connect row, brand max-width none).
-3. **Rename `@media (width >= 1024px)` → `@media (width >= 1440px)`** (the desktop block: content→row, brand 290, columns 620, col 290, connect 290, meta→row, country 290). Inside it, change `padding-block: 80px 8px` → `padding-bottom: 8px` (top 80 now comes from the token); keep `gap: 64px`.
+## Phase 3 — Blöcke sauber neu (mobile-first, Figma-verifiziert)
+10. Header/Nav, Hero (inkl. Image-Variante + Stat-Card + Quicklinks), Footer, Cards, Columns — jeweils Basis = XS, `min-width`-Sprünge bei 768/1024/1440, gegen die jeweiligen Figma-Frames verifiziert. **Keine** pro-Komponente-Sonderpatches mehr.
+11. Pro Block: `npm run lint` + Playwright-Verifikation bei 375 / 900 / 1200 / 1500 (Layout + kein Overflow).
 
-Net effect: M (1024–1439) drops from the desktop 4-col row to the correct tablet 2-up layout with 52px symmetric padding and 40px gap; S and XS gain correct symmetric padding; L is unchanged.
+## Phase 4 — Content & Deploy
+12. DA-Content (Nav/Footer sind aktuell auf Boilerplate zurückgefallen) neu aufsetzen/wiederherstellen — separat, da Content ≠ Code.
+13. Commit(s) + Push; Live nach Code-Sync über alle 4 Tiers verifizieren.
 
-## Out of scope (flagged, not done here)
-- **Component width tokens / hero:** the same artifact reasoning applies to the Hero token file (`width-text`=840 at S is impossible in a 688 grid). Recommend **not** wiring those literal per-tier numbers either; the hero already matches L. Handle separately if you want hero work.
+## Offene Punkte (vor/als Erstes zu klären)
+- **DA-Content:** Nur Code neu, oder auch Nav/Footer/Seiten-Content in DA neu aufbauen? (Content-Änderungen sind eigenständig destruktiv — separate Bestätigung.)
+- **Token-JSONs:** Bitte die frischen Exporte liefern (am besten pro Modus getrennt: XS/S/M/L für Grid+Typo, Light für Farben). Ohne diese kann Phase 2 nicht starten.
+- **Andere Branches** (`aem-20260723-*`, `grid-and-component-token-fixes`) — bleiben unangetastet, ok?
 
 ## Checklist
-- [x] Fetch L/M/S/XS footer frames from Figma (design context)
-- [x] Determine real per-tier layout + padding + gap from the frames
-- [x] Diagnose the discrepancy: desktop layout wrongly starts at 1024 (should be 1440); M/XS padding wrong
-- [x] Resolve the 3 blocking token questions (tokens are export artifacts — not wired)
-- [ ] Base `.footer-inner`: `padding: var(--az-content-margin)`
-- [ ] `@media >=768`: remove redundant `padding-block: 40px`
-- [ ] Move desktop block `>=1024` → `>=1440`; change `padding-block:80px 8px` → `padding-bottom:8px`; keep gap 64
-- [ ] `npm run lint` (CSS)
-- [ ] Playwright-verify at 375 / 900 / 1200 / 1500: XS stacked (20 pad) · S tablet 2-up (40) · **M tablet 2-up (52, gap 40) — the fix** · L desktop row (80/8, gap 64)
-- [ ] Commit + push; verify live at the 4 tiers
+- [x] Ansatz geklärt: Reset + Neuaufbau, mobile-first, Token-JSONs vom Nutzer
+- [ ] DA-Content-Frage klären (nur Code vs. auch Content) — AskUserQuestion
+- [ ] Frische Token-JSONs vom Nutzer erhalten (Farben / Typo / Grid+Spacing / Komponenten)
+- [ ] Read-only Git-Bestandsaufnahme
+- [ ] Backup-Branch `backup/az-work-2026-07-24` anlegen + pushen
+- [ ] `main` → `git reset --hard c9bbc0e`
+- [ ] `git push --force-with-lease origin main`
+- [ ] Reset verifizieren (lokal + remote = `c9bbc0e`, Backup vorhanden)
+- [ ] `styles.css` mobile-first neu aus Token-JSONs schreiben (Tokens + Grid + Typo)
+- [ ] Grid/Section-Container mobile-first
+- [ ] Blöcke neu/angepasst mobile-first: Header, Hero, Footer, Cards, Columns
+- [ ] Pro Block: `npm run lint` + Playwright 375/900/1200/1500
+- [ ] DA-Content (Nav/Footer/Seiten) wiederherstellen/aufsetzen — falls gewünscht
+- [ ] Commit + Push; Live über 4 Tiers verifizieren
+- [ ] Backup-Branchname + Wiederherstellungshinweis an den Nutzer
 
-*Execution requires Execute mode. No component-token variables are added; this is a layout-breakpoint + padding correction grounded in the Figma frames.*
+## Hinweis zur Ausführung
+Phase 1 (Reset + Force-Push auf `main`) ist **destruktiv und überschreibt geteilte Historie** — erfordert **Execute-Mode** und deine ausdrückliche Freigabe („go"). Der Backup-Branch sichert die komplette bisherige AZ-Arbeit. Danach starten wir Phase 2, **sobald du die frischen Token-JSONs lieferst**.
