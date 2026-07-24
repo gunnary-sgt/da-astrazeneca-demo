@@ -1,8 +1,8 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
-// media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 900px)');
+// full horizontal nav from M viewport (≥1024); hamburger below (Figma)
+const isDesktop = window.matchMedia('(min-width: 1024px)');
 
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
@@ -131,10 +131,24 @@ export default async function decorate(block) {
   });
 
   const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
-  if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
+  if (navBrand) {
+    const brandLink = navBrand.querySelector('.button');
+    if (brandLink) {
+      brandLink.className = '';
+      brandLink.closest('.button-container').className = '';
+    }
+    // replace the brand text link with the AstraZeneca logo image
+    const link = navBrand.querySelector('a');
+    if (link && !link.querySelector('img')) {
+      const logo = document.createElement('img');
+      logo.src = `${window.hlx.codeBasePath}/icons/astrazeneca-logo.png`;
+      logo.alt = link.textContent.trim() || 'AstraZeneca';
+      logo.width = 140;
+      logo.height = 36;
+      logo.loading = 'eager';
+      link.textContent = '';
+      link.append(logo);
+    }
   }
 
   const navSections = nav.querySelector('.nav-sections');
