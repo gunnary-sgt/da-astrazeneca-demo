@@ -259,7 +259,7 @@ header nav .nav-sections ul > li a:focus-visible {
 
   header nav {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: flex-start;
     gap: 0 var(--az-content-gutter);
     height: auto;
@@ -275,15 +275,10 @@ header nav .nav-sections ul > li a:focus-visible {
     visibility: hidden;
   }
 
-  header nav .nav-brand {
-    transform: translateY(-3px);
-  }
-
   header nav .nav-sections {
     display: block;
     visibility: visible;
     white-space: nowrap;
-    transform: translateY(6px);
   }
 
   header nav[aria-expanded='true'] .nav-sections {
@@ -304,7 +299,6 @@ header nav .nav-sections ul > li a:focus-visible {
 
   header nav .nav-tools {
     margin-left: auto;
-    transform: translateY(6px);
   }
 
   header nav .nav-tools p {
