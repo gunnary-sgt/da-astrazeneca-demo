@@ -283,7 +283,7 @@ header nav .nav-sections ul > li a:focus-visible {
     display: block;
     visibility: visible;
     white-space: nowrap;
-    transform: translateY(4px);
+    transform: translateY(6px);
   }
 
   header nav[aria-expanded='true'] .nav-sections {
@@ -304,7 +304,7 @@ header nav .nav-sections ul > li a:focus-visible {
 
   header nav .nav-tools {
     margin-left: auto;
-    transform: translateY(4px);
+    transform: translateY(6px);
   }
 
   header nav .nav-tools p {
