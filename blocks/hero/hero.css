@@ -1,3 +1,8 @@
+/* ==========================================================================
+   AstraZeneca investor hero — mobile-first
+   Background image + white gradient overlay; stat card with scaling SVG graph.
+   XS stacked → S card 2-col → M/L hero + card side-by-side.
+   ========================================================================== */
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -5,33 +10,288 @@
 
 .hero {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  background-color: var(--az-white-20);
 }
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
-
-.hero picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
+.hero-inner {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: calc(var(--az-content-grid) + (var(--az-content-margin) * 2));
+  margin: 0 auto;
+  padding: 40px var(--az-content-margin);
 }
 
-.hero img {
-  object-fit: cover;
+.hero-top {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* --- background image + white legibility overlay --- */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-bg picture,
+.hero-bg img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
-@media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
+.hero.hero-image .hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(255 255 255 / 85%) 0%, rgb(255 255 255 / 55%) 100%);
+}
+
+.hero.hero-image .hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- content column --- */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: var(--az-hero-width-text, 620px);
+}
+
+.hero-content h1 {
+  margin: 0;
+  font-family: var(--az-font-headline);
+  font-weight: 400;
+  color: var(--az-text-base);
+}
+
+.hero-content h1 em {
+  font-style: italic;
+  color: var(--az-text-highlight);
+}
+
+.hero-content p {
+  margin: 0;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--az-text-base);
+}
+
+.hero-content .button-container {
+  margin: 0;
+}
+
+.hero-content a.button {
+  border-radius: var(--az-radius-small);
+}
+
+/* --- stat card --- */
+.hero-stat-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+  padding: 32px;
+  border-radius: var(--az-radius-medium);
+  background-color: var(--az-background-container-blurry);
+  backdrop-filter: blur(6px);
+}
+
+.hero-stat-eyebrow {
+  margin: 0;
+  font-family: var(--az-font-body);
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--az-text-data);
+}
+
+.hero-stat-card .hero-stat-label {
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--az-text-base);
+}
+
+.hero-stat-card .hero-stat-value {
+  margin: 0;
+  font-family: var(--az-font-headline);
+  font-size: 40px;
+  line-height: 48px;
+  color: var(--az-text-data);
+}
+
+.hero-stat-card .hero-stat-value strong {
+  font-weight: 400;
+}
+
+.hero-stat-card .hero-stat-cagr {
+  margin: 0;
+  padding-top: 32px;
+  border-top: 2px solid var(--az-mulberry-50);
+  font-family: var(--az-font-headline);
+  font-size: 24px;
+  line-height: 32px;
+  color: var(--az-text-base);
+}
+
+.hero-stat-card .hero-stat-source {
+  margin: 0;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--az-black-10);
+}
+
+/* scaling SVG graph */
+.hero-chart {
+  width: 100%;
+  height: 114px;
+}
+
+/* --- quick links --- */
+.hero-quicklinks ul {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-quicklink {
+  margin: 0;
+}
+
+a.hero-quicklink-link:any-link {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 100%;
+  padding: 24px;
+  border-radius: var(--az-radius-medium);
+  background-color: var(--az-background-container);
+  font-family: var(--az-font-headline);
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--az-text-base);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a.hero-quicklink-link:hover,
+a.hero-quicklink-link:focus-visible {
+  color: var(--az-mulberry-50);
+  text-decoration: none;
+}
+
+.hero-quicklink-arrow {
+  flex: 0 0 auto;
+}
+
+/* ==========================================================================
+   S viewport (≥768): stat card two-column inner layout, quicklinks 2-up
+   ========================================================================== */
+@media (width >= 768px) {
+  .hero-inner {
+    gap: 48px;
+    padding-block: 48px;
+  }
+
+  .hero-stat-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+    align-items: start;
+  }
+
+  .hero-stat-eyebrow,
+  .hero-stat-source {
+    grid-column: 1 / -1;
+  }
+
+  .hero-quicklinks ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ==========================================================================
+   M viewport (≥1024): hero block + graph card side-by-side, quicklinks 3-up
+   ========================================================================== */
+@media (width >= 1024px) {
+  .hero-inner {
+    gap: 64px;
+    padding-block: 64px;
+  }
+
+  .hero.hero-image .hero-bg::after {
+    background: linear-gradient(90deg, rgb(255 255 255 / 80%) 50%, rgb(255 255 255 / 20%) 76%);
+  }
+
+  .hero-top {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .hero-content {
+    flex: 0 1 291px;
+    gap: 40px;
+  }
+
+  .hero-content h1 {
+    font-size: var(--heading-font-size-xxl);
+    line-height: var(--heading-line-height-xxl);
+  }
+
+  .hero-stat-card {
+    display: flex;
+    flex: 0 0 291px;
+    width: 291px;
+    gap: 32px;
+    padding: 32px;
+  }
+
+  .hero-stat-card .hero-stat-value {
+    font-size: 44px;
+    line-height: 52px;
+  }
+
+  .hero-quicklinks ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ==========================================================================
+   L viewport (≥1440): wider hero (620) + graph card (400), quicklinks 5-up
+   ========================================================================== */
+@media (width >= 1440px) {
+  .hero-content {
+    flex: 0 1 620px;
+  }
+
+  .hero-stat-card {
+    flex: 0 0 400px;
+    width: 400px;
+  }
+
+  .hero-stat-card .hero-stat-value {
+    font-size: 48px;
+    line-height: 56px;
+  }
+
+  .hero-quicklinks ul {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
