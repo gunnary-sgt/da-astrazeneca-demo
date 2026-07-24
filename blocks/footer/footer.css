@@ -257,6 +257,15 @@ footer .footer-country .icon svg {
   height: 100%;
 }
 
+footer .footer-country-chevron {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border: 2px solid currentcolor;
+  border-width: 0 2px 2px 0;
+  transform: translateY(-2px) rotate(45deg);
+}
+
 footer .footer-meta-links {
   display: flex;
   flex-wrap: wrap;

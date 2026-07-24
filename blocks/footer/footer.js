@@ -127,14 +127,20 @@ export default async function decorate(block) {
 
   if (meta) {
     meta.classList.add('footer-meta');
-    const [country, links, copyright] = [...meta.children];
+    // the three paragraphs live inside a default-content-wrapper
+    const metaScope = meta.querySelector('.default-content-wrapper') || meta;
+    const [country, links, copyright] = [...metaScope.children];
     if (country) {
       country.classList.add('footer-country');
       const link = country.querySelector('a');
       if (link) {
         const globe = document.createElement('span');
-        globe.className = 'icon icon-globe';
+        globe.className = 'icon icon-globe footer-country-globe';
         link.prepend(globe);
+        const chevron = document.createElement('span');
+        chevron.className = 'footer-country-chevron';
+        chevron.setAttribute('aria-hidden', 'true');
+        link.append(chevron);
       }
     }
     if (links) links.classList.add('footer-meta-links');
