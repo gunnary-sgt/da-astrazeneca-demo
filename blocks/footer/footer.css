@@ -212,7 +212,9 @@ footer .footer-connect-col p {
 }
 
 footer a.footer-subscribe:any-link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin-top: 8px;
   font-family: var(--az-font-headline);
   font-size: 16px;

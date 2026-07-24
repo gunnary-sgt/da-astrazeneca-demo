@@ -115,7 +115,14 @@ export default async function decorate(block) {
       });
     }
     const subscribe = [...connect.querySelectorAll('p a')].find((a) => !a.closest('.footer-social'));
-    if (subscribe) subscribe.classList.add('footer-subscribe');
+    if (subscribe && !subscribe.querySelector('.footer-subscribe-arrow')) {
+      subscribe.classList.add('footer-subscribe');
+      const arrow = document.createElement('span');
+      arrow.className = 'footer-subscribe-arrow';
+      arrow.setAttribute('aria-hidden', 'true');
+      arrow.textContent = '→';
+      subscribe.append(arrow);
+    }
   }
 
   if (meta) {

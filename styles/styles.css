@@ -125,8 +125,8 @@
   --az-statistic-negative: var(--az-magenta-50);
 
   /* --- Type families --- */
-  --az-font-headline: lexia, georgia, 'times new roman', serif;
-  --az-font-body: 'helvetica neue', helvetica, arial, sans-serif;
+  --az-font-headline: lexia, lexia-fallback, georgia, 'times new roman', serif;
+  --az-font-body: 'helvetica neue', helvetica-neue-fallback, helvetica, arial, sans-serif;
 
   /* --- Spacing scale (mode-independent, 0–80) --- */
   --az-spacing-0: 0;
