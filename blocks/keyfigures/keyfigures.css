@@ -45,7 +45,7 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  flex: 1 1 100%;
+  flex: 0 1 var(--az-col-4);
 }
 
 .keyfigures-card-body {
@@ -169,10 +169,6 @@ a.keyfigures-cta.button:any-link {
     line-height: 48px;
   }
 
-  .keyfigures-card {
-    flex: 1 1 332px;
-  }
-
   .keyfigures-value-number {
     font-size: 40px;
     line-height: 48px;
@@ -202,11 +198,6 @@ a.keyfigures-cta.button:any-link {
     line-height: 52px;
   }
 
-  .keyfigures-card {
-    flex: 1 1 0;
-    min-width: 0;
-  }
-
   .keyfigures-value-number {
     font-size: 44px;
     line-height: 52px;
@@ -224,10 +215,6 @@ a.keyfigures-cta.button:any-link {
   .keyfigures-title {
     font-size: 48px;
     line-height: 56px;
-  }
-
-  .keyfigures-card {
-    flex: 0 1 400px;
   }
 
   .keyfigures-value-number {
