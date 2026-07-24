@@ -167,13 +167,33 @@ header nav[aria-expanded='true'] .nav-tools {
 }
 
 header nav .nav-tools p {
-  display: flex;
-  align-items: center;
-  gap: 12px;
   padding: 12px 0;
   font-size: 16px;
   line-height: 20px;
   color: var(--az-nav-link);
+}
+
+header nav .nav-tools p a:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--az-nav-link);
+}
+
+header nav .nav-tools .nav-tools-globe {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 24px;
+}
+
+header nav .nav-tools .nav-tools-chevron {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-left: 2px;
+  border: 2px solid currentcolor;
+  border-width: 0 2px 2px 0;
+  transform: translateY(-2px) rotate(45deg);
 }
 
 header nav .nav-tools p a:hover,

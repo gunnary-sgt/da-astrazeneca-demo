@@ -165,6 +165,33 @@ export default async function decorate(block) {
     });
   }
 
+  // country selector: inline globe SVG (inherits currentColor) + chevron
+  const navTools = nav.querySelector('.nav-tools');
+  if (navTools) {
+    const toolsLink = navTools.querySelector('a');
+    if (toolsLink && !toolsLink.querySelector('.nav-tools-globe')) {
+      try {
+        const resp = await fetch(`${window.hlx.codeBasePath}/icons/globe.svg`);
+        if (resp.ok) {
+          const tmp = document.createElement('div');
+          tmp.innerHTML = await resp.text();
+          const svg = tmp.querySelector('svg');
+          if (svg) {
+            svg.classList.add('nav-tools-globe');
+            svg.setAttribute('aria-hidden', 'true');
+            toolsLink.prepend(svg);
+          }
+        }
+      } catch {
+        // leave the link text-only if the icon fetch fails
+      }
+      const chevron = document.createElement('span');
+      chevron.className = 'nav-tools-chevron';
+      chevron.setAttribute('aria-hidden', 'true');
+      toolsLink.append(chevron);
+    }
+  }
+
   // hamburger for mobile
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
