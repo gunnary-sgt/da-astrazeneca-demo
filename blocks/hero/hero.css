@@ -246,7 +246,7 @@ a.hero-quicklink-link:focus-visible {
   }
 
   .hero-content {
-    flex: 0 1 291px;
+    flex: 0 1 var(--az-col-6);
     gap: 40px;
   }
 
@@ -257,8 +257,8 @@ a.hero-quicklink-link:focus-visible {
 
   .hero-stat-card {
     display: flex;
-    flex: 0 0 291px;
-    width: 291px;
+    flex: 0 0 var(--az-col-5);
+    width: var(--az-col-5);
     gap: 32px;
     padding: 32px;
   }
