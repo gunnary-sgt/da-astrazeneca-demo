@@ -276,7 +276,7 @@ header nav .nav-sections ul > li a:focus-visible {
   }
 
   header nav .nav-brand {
-    transform: translateY(-4px);
+    transform: translateY(-3px);
   }
 
   header nav .nav-sections {
