@@ -62,10 +62,10 @@ footer .footer h4::after {
 }
 
 /* --- brand --- */
-footer .footer-brand {
+footer .footer-brand > .default-content-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 56px;
+  gap: 32px;
 }
 
 footer .footer-brand img {
@@ -73,8 +73,9 @@ footer .footer-brand img {
   height: auto;
 }
 
-footer .footer-brand-logo {
-  margin: 0;
+/* logo → disclaimer gap: 64 (XS/S/M) via 32 margin + 32 wrapper gap */
+footer .footer-brand .footer-brand-logo {
+  margin: 0 0 32px;
 }
 
 /* disclaimer + fixed 64px gold bar before the Veeva/review lines */
@@ -312,6 +313,11 @@ footer .footer-copyright {
   footer .footer-inner {
     gap: 64px;
     padding-bottom: 8px;
+  }
+
+  /* logo → disclaimer gap: 56 (L) via 24 margin + 32 wrapper gap */
+  footer .footer-brand .footer-brand-logo {
+    margin-bottom: 24px;
   }
 
   footer .footer-content {
