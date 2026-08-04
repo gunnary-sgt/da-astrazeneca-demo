@@ -91,6 +91,26 @@
   border-radius: var(--az-radius-small);
 }
 
+/* --- dark variant: light text on a dark surface (no background image) --- */
+.hero.dark {
+  background-color: var(--az-black-10);
+}
+
+.hero.dark .hero-content h1,
+.hero.dark .hero-content p {
+  color: var(--az-white-10);
+}
+
+.hero.dark .hero-content h1 em {
+  /* magenta-30 on black-10 ≈ 5.6:1 — clears WCAG 4.5:1; brand magenta-50 is only ~3.2:1 */
+  color: var(--az-magenta-30);
+}
+
+.hero.dark .hero-content a.button:any-link:focus-visible {
+  outline: 3px solid var(--az-gold-50);
+  outline-offset: 3px;
+}
+
 /* --- stat card --- */
 .hero-stat-card {
   box-sizing: border-box;
