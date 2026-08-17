@@ -1,0 +1,87 @@
+/* ==========================================================================
+   AstraZeneca quick-links — mobile-first
+   Row of link cards (label + trailing arrow); each card is a single link.
+   XS 1-up stacked → S 2-up → M/L 5-up equal-width row on the content grid.
+   ========================================================================== */
+.quicklinks-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--az-content-gutter);
+  width: 100%;
+}
+
+.quicklinks-list > li {
+  display: flex;
+}
+
+a.quicklinks-card:any-link {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--az-spacing-2);
+  width: 100%;
+  min-width: 240px;
+  padding: var(--az-spacing-6);
+  border: 1px solid var(--az-graphite-10);
+  border-radius: var(--az-radius-medium);
+  background-color: var(--az-background-container);
+  color: var(--az-text-base);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+a.quicklinks-card:any-link:hover,
+a.quicklinks-card:any-link:focus-visible {
+  border-color: var(--az-nav-border-hover);
+  color: var(--az-nav-link-hover);
+  text-decoration: none;
+}
+
+.quicklinks-label {
+  font-family: var(--az-font-headline);
+  font-weight: 400;
+  font-size: var(--az-paragraph-large-size);
+  line-height: var(--az-paragraph-large-line-height);
+}
+
+.quicklinks-arrow {
+  flex: 0 0 auto;
+  font-size: var(--az-paragraph-large-size);
+  line-height: var(--az-paragraph-large-line-height);
+}
+
+/* ==========================================================================
+   S viewport (≥768): 2 cards per row
+   ========================================================================== */
+@media (width >= 768px) {
+  .quicklinks-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ==========================================================================
+   M viewport (≥1024): 5 across in one row
+   ========================================================================== */
+@media (width >= 1024px) {
+  .quicklinks-list {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  a.quicklinks-card:any-link {
+    min-width: 0;
+  }
+}
+
+/* ==========================================================================
+   L viewport (≥1440): wider gutter
+   ========================================================================== */
+@media (width >= 1440px) {
+  .quicklinks-list {
+    gap: var(--az-content-gutter);
+  }
+}
